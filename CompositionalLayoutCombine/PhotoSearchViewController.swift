@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine //asynchronous programming framework introduced in iOS 13
+import Kingfisher
 
 class PhotoSearchViewController: UIViewController {
     
@@ -99,11 +100,11 @@ class PhotoSearchViewController: UIViewController {
         return layout
     }
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, int) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, photo) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.reuseIdentifier, for: indexPath) as? ImageCell else {
                 fatalError("could not dequeue image cell")
             }
-            cell.backgroundColor = .systemPink
+            cell.imageView.kf.setImage(with: URL(string: photo.webformatURL))
             return cell
         })
         var snapshot = dataSource.snapshot()
