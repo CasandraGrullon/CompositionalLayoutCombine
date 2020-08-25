@@ -15,7 +15,7 @@ class PhotoSearchViewController: UIViewController {
         case main
     }
     private var collectionView: UICollectionView!
-    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, Int>
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, Photo>
     private var dataSource: DataSource!
     
     private var searchController: UISearchController!
@@ -40,8 +40,8 @@ class PhotoSearchViewController: UIViewController {
         APIClient().searchPhotos(for: query)
             .sink(receiveCompletion: { (completion) in
                 print(completion)
-            }) { (photos) in
-                dump(photos)
+            }) { [weak self] (photos) in
+                self?.updateSnapshot(with: photos)
         }
     .store(in: &subscriptions)
     }
@@ -55,6 +55,13 @@ class PhotoSearchViewController: UIViewController {
                 //call the api client for the photo search queue
         }
             .store(in: &subscriptions) //store them to our set
+    }
+    private func updateSnapshot(with photos: [Photo]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteAllItems()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(photos)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     private func configureSearchController() {
         searchController = UISearchController(searchResultsController: nil)
@@ -101,7 +108,6 @@ class PhotoSearchViewController: UIViewController {
         })
         var snapshot = dataSource.snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(Array(1...100))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
