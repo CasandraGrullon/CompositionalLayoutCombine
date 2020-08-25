@@ -15,6 +15,9 @@
 		C6B2170624F555EC00551394 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B2170424F555EC00551394 /* LaunchScreen.storyboard */; };
 		C6B2171124F555EC00551394 /* CompositionalLayoutCombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2171024F555EC00551394 /* CompositionalLayoutCombineTests.swift */; };
 		C6B2171C24F55AF400551394 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2171B24F55AF400551394 /* ImageCell.swift */; };
+		C6B2171E24F565A900551394 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2171D24F565A900551394 /* APIClient.swift */; };
+		C6B2172024F565C300551394 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2171F24F565C300551394 /* Config.swift */; };
+		C6B2172224F5676400551394 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2172124F5676400551394 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		C6B2171024F555EC00551394 /* CompositionalLayoutCombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutCombineTests.swift; sourceTree = "<group>"; };
 		C6B2171224F555EC00551394 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6B2171B24F55AF400551394 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		C6B2171D24F565A900551394 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		C6B2171F24F565C300551394 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C6B2172124F5676400551394 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,9 @@
 				C6B216F924F555EA00551394 /* AppDelegate.swift */,
 				C6B216FB24F555EA00551394 /* SceneDelegate.swift */,
 				C6B216FD24F555EA00551394 /* PhotoSearchViewController.swift */,
+				C6B2171D24F565A900551394 /* APIClient.swift */,
+				C6B2172124F5676400551394 /* Photo.swift */,
+				C6B2171F24F565C300551394 /* Config.swift */,
 				C6B2171B24F55AF400551394 /* ImageCell.swift */,
 				C6B216FF24F555EA00551394 /* Main.storyboard */,
 				C6B2170224F555EC00551394 /* Assets.xcassets */,
@@ -203,10 +212,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B2172224F5676400551394 /* Photo.swift in Sources */,
 				C6B216FE24F555EA00551394 /* PhotoSearchViewController.swift in Sources */,
 				C6B2171C24F55AF400551394 /* ImageCell.swift in Sources */,
 				C6B216FA24F555EA00551394 /* AppDelegate.swift in Sources */,
+				C6B2171E24F565A900551394 /* APIClient.swift in Sources */,
 				C6B216FC24F555EA00551394 /* SceneDelegate.swift in Sources */,
+				C6B2172024F565C300551394 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@ import UIKit
 import Combine //asynchronous programming framework introduced in iOS 13
 
 class PhotoSearchViewController: UIViewController {
-
+    
     enum SectionKind: Int, CaseIterable {
         case main
     }
@@ -19,6 +19,13 @@ class PhotoSearchViewController: UIViewController {
     private var dataSource: DataSource!
     
     private var searchController: UISearchController!
+    //COMBINE:
+    // in order to make any property a publisher you need to append @Published
+    // publisher -> emits changes from the search bar to the search controller
+    // to subscribe to the searchText's Publisher, prefix a $
+    @Published private var searchText = ""
+    // store subscriptions, without this the publisher will never emit values
+    private var subscriptions: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +34,27 @@ class PhotoSearchViewController: UIViewController {
         configureCollectionView()
         configureDataSource()
         configureSearchController()
+        subscribeToPublisher()
+    }
+    private func searchPhotos(for query: String) {
+        APIClient().searchPhotos(for: query)
+            .sink(receiveCompletion: { (completion) in
+                print(completion)
+            }) { (photos) in
+                dump(photos)
+        }
+    .store(in: &subscriptions)
+    }
+    private func subscribeToPublisher() {
+        //combine:
+        $searchText
+            .debounce(for: .seconds(1.0), scheduler: RunLoop.main) //async
+            .removeDuplicates()
+            .sink { [weak self] (text) in //sink recieves values
+                self?.searchPhotos(for: text)
+                //call the api client for the photo search queue
+        }
+            .store(in: &subscriptions) //store them to our set
     }
     private func configureSearchController() {
         searchController = UISearchController(searchResultsController: nil)
@@ -76,10 +104,14 @@ class PhotoSearchViewController: UIViewController {
         snapshot.appendItems(Array(1...100))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-
+    
 }
 extension PhotoSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text)
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
+            return
+        }
+        searchText = text
+        //after assigning a new value to searchText, the subscriber will recieve the value
     }
 }
